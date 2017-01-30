@@ -1,4 +1,8 @@
 # Akka
+#cake files and directories
+tools/cake
+tools/NuGet.exe
+build.ps1
 
 # Fake directories
 src/.build/**

@@ -120,6 +120,23 @@ Task("HelpSourceBrowserDocs")
       Information("In order to publish documentation all of these values must be provided.");
       Information("");
 });
+
+Task("HelpMultiNodeTests")
+.Does(() =>
+{
+      Information("usage: ");
+      Information("build MultiNodeTests [spec-assembly=<filter>]");
+      Information("Just runs the MultiNodeTests. Does not build the projects.");
+      Information("");
+      Information("Arguments for MultiNodeTests target:");
+      Information("   [spec-assembly=<filter>]  Restrict which spec projects are run.");
+      Information("");
+      Information("       Alters the discovery filter to enable restricting which specs are run.");
+      Information("       If not supplied the filter used is '*.Tests.Multinode.Dll'");
+      Information("       When supplied this is altered to '*<filter>*.Tests.Multinode.Dll'");
+      Information("");
+});
+
 //To keep cake happy, think this is a bug.
 Task("Default")
 .IsDependentOn("Help");

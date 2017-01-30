@@ -105,7 +105,21 @@ Task("HelpDocs")
       Information("                                   Build and publish docs to http://fooaccount.blob.core.windows.net/docs/unstable");
       Information("");
 });
-
+Task("HelpSourceBrowserDocs")
+.Does(() =>
+{
+      Information("usage: ");
+      Information("build GenerateSourceBrowser");
+      Information("Just generates the SourceBrowser docs for Akka.NET locally. Does not attempt to publish.");
+      Information("");
+      Information("build PublishSourceBrowser publishsettings=<filePath> ");
+      Information("");
+      Information("Arguments for PublishSourceBrowser target:");
+      Information("   publishsettings=<filePath> Publish settings file.");
+      Information("");
+      Information("In order to publish documentation all of these values must be provided.");
+      Information("");
+});
 //To keep cake happy, think this is a bug.
 Task("Default")
 .IsDependentOn("Help");

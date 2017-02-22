@@ -219,17 +219,11 @@ namespace Akka.Cluster.Tools.Tests.MultiNode.Client
         #endregion
     }
 
-    public class ClusterClientMultiNode1 : ClusterClientSpec { }
-    public class ClusterClientMultiNode2 : ClusterClientSpec { }
-    public class ClusterClientMultiNode3 : ClusterClientSpec { }
-    public class ClusterClientMultiNode4 : ClusterClientSpec { }
-    public class ClusterClientMultiNode5 : ClusterClientSpec { }
-
-    public abstract class ClusterClientSpec : MultiNodeClusterSpec
+    public class ClusterClientSpec : MultiNodeClusterSpec
     {
         private readonly ClusterClientSpecConfig _config;
 
-        protected ClusterClientSpec() : this(new ClusterClientSpecConfig())
+        public ClusterClientSpec() : this(new ClusterClientSpecConfig())
         {
         }
 
@@ -611,7 +605,7 @@ namespace Akka.Cluster.Tools.Tests.MultiNode.Client
                     // start new system on same port
                     var sys2 = ActorSystem.Create(
                         Sys.Name,
-                        ConfigurationFactory.ParseString("akka.remote.helios.tcp.port=" + Cluster.Get(Sys).SelfAddress.Port).WithFallback(Sys.Settings.Config));
+                        ConfigurationFactory.ParseString("akka.remote.dot-netty.tcp.port=" + Cluster.Get(Sys).SelfAddress.Port).WithFallback(Sys.Settings.Config));
                     Cluster.Get(sys2).Join(Cluster.Get(sys2).SelfAddress);
                     var service2 = sys2.ActorOf(Props.Create(() => new ClusterClientSpecConfig.TestService(TestActor)), "service2");
                     ClusterClientReceptionist.Get(sys2).RegisterService(service2);

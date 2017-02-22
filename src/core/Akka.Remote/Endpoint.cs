@@ -18,6 +18,7 @@ using Akka.Dispatch;
 using Akka.Dispatch.SysMsg;
 using Akka.Event;
 using Akka.Pattern;
+using Akka.Remote.Proto;
 using Akka.Remote.Transport;
 using Akka.Serialization;
 using Akka.Util;
@@ -211,6 +212,7 @@ namespace Akka.Remote
         /// <summary>
         /// TBD
         /// </summary>
+        /// <param name="message">TBD</param>
         /// <param name="localAddress">TBD</param>
         /// <param name="remoteAddress">TBD</param>
         /// <param name="cause">TBD</param>
@@ -1105,7 +1107,7 @@ namespace Akka.Remote
             }
             catch (Exception e)
             {
-                return new Status.Failure(e.InnerException);
+                return new Status.Failure(e.InnerException ?? e);
             }
         }
 
@@ -1429,7 +1431,7 @@ namespace Akka.Remote
                 }
 
                 var pdu = _codec.ConstructMessage(send.Recipient.LocalAddressToUse, send.Recipient,
-                    SerializeMessage(send.Message), send.SenderOption, send.Seq, _lastAck);
+                    this.SerializeMessage(send.Message), send.SenderOption, send.Seq, _lastAck);
 
                 _remoteMetrics.LogPayloadBytes(send.Message, pdu.Length);
 
